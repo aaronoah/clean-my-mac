@@ -1,0 +1,2 @@
+# path to your clean-my-mac installation
+export CLEAN_MY_MAC=$HOME/.clean-my-mac
