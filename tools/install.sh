@@ -37,7 +37,7 @@ main() {
     exit 1
   }
 
-  umask g=w, o=w # revoke group user and other user write permissions
+  umask g=w,o=w # revoke group user and other user write permissions
 
   printf "${BLUE}Cloning Clean My Mac...${NORMAL}\n"
   env git clone --depth=1 https://github.com/aaronoah/clean-my-mac.git "$CLEAN_MY_MAC" || {
