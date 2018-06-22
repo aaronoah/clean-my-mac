@@ -8,7 +8,7 @@ main() {
   if [[ -n "$colors" ]] && [[ "$colors" -ge 8 ]]; then
     RED="$(tput setaf 1)"
     BLUE="$(tput setaf 4)"
-    GREEN="$(tput setaf 5)"
+    GREEN="$(tput setaf 6)"
     YELLOW="$(tput setaf 3)"
     NORMAL="$(tput sgr0)"
   else
@@ -40,6 +40,11 @@ main() {
   umask g=w,o=w # revoke group user and other user write permissions
 
   printf "${BLUE}Cloning Clean My Mac...${NORMAL}\n"
+  command -v git >/dev/null 2>&1 || {
+    echo "Error: git is not installed"
+    exit 1
+  }
+
   env git clone --depth=1 https://github.com/aaronoah/clean-my-mac.git "$CLEAN_MY_MAC" || {
     printf "${RED}Error: git clone of clean-my-mac failed.\n"
     exit 1
@@ -56,8 +61,8 @@ main() {
   chmod +x "${CLEAN_MY_MAC}/bin/uninstall_clean_my_mac"
 
   printf "${BLUE}Finalizing...${NORMAL}\n"
-  case "$(echo $0)" in
-    -bash)
+  case "$(echo $SHELL)" in
+    /bin/zsh)
       echo "export CLEAN_MY_MAC=$CLEAN_MY_MAC" >> "$HOME/.bashrc"
       echo "export PATH=\$CLEAN_MY_MAC/bin:\$PATH" >> "$HOME/.bashrc"
       ;;
