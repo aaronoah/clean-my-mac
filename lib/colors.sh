@@ -17,11 +17,11 @@ colors() {
     local NORMAL=""
   fi
 
-  export RED
-  export BLUE
-  export GREEN
-  export YELLOW
-  export NORMAL
+  export $RED
+  export $BLUE
+  export $GREEN
+  export $YELLOW
+  export $NORMAL
 }
 
 colors

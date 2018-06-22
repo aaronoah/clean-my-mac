@@ -79,5 +79,5 @@
   echo '                                                     /______/                                      ...is now installed!'
   echo ''
   printf "${NORMAL}"
-  source "$HOME/.cleanmmrc"
+  source $PROFILE
 }
