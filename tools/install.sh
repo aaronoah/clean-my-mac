@@ -45,7 +45,7 @@
     exit 1
   }
 
-  env git clone --depth=1 https://github.com/aaronoah/clean-my-mac.git "$CLEAN_MY_MAC" || {
+  env git clone --depth=1 https://github.com/aaronoah/clean-my-mac.git "$CLEAN_MY_MAC" >/dev/null 2>&1 || {
     printf "${RED}Error: git clone of clean-my-mac failed.\n"
     exit 1
   }
@@ -63,7 +63,7 @@
   chmod +x "${CLEAN_MY_MAC}/bin/uninstall_clean_my_mac"
 
   printf "${BLUE}Finalizing...${NORMAL}\n"
-  local PROFILE=$(detect_profile)
+  PROFILE=$(detect_profile)
   echo "export CLEAN_MY_MAC=$CLEAN_MY_MAC" >> $PROFILE
   echo "export PATH=\$CLEAN_MY_MAC/bin:\$PATH" >> $PROFILE
 
