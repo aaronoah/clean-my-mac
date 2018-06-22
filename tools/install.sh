@@ -1,6 +1,6 @@
 #!/bin/bash
 
-main() {
+{
   if which tput >/dev/null 2>&1; then
     colors=$(tput colors)
   fi
@@ -50,6 +50,8 @@ main() {
     exit 1
   }
 
+  source "$CLEAN_MY_MAC/lib/detect_profile.sh"
+
   printf "${BLUE}Using the Clean My Mac template file and add it to ~/.cleanmmrc${NORMAL}\n"
   cp "$CLEAN_MY_MAC/templates/cleanmmrc.template" "$HOME/.cleanmmrc"
 
@@ -61,16 +63,9 @@ main() {
   chmod +x "${CLEAN_MY_MAC}/bin/uninstall_clean_my_mac"
 
   printf "${BLUE}Finalizing...${NORMAL}\n"
-  case "$(echo $SHELL)" in
-    /bin/zsh)
-      echo "export CLEAN_MY_MAC=$CLEAN_MY_MAC" >> "$HOME/.bashrc"
-      echo "export PATH=\$CLEAN_MY_MAC/bin:\$PATH" >> "$HOME/.bashrc"
-      ;;
-    zsh)
-      echo "export CLEAN_MY_MAC=$CLEAN_MY_MAC" >> "$HOME/.zshrc"
-      echo "export PATH=\$CLEAN_MY_MAC/bin:\$PATH" >> "$HOME/.zshrc"
-      ;;
-  esac
+  local PROFILE=$(detect_profile)
+  echo "export CLEAN_MY_MAC=$CLEAN_MY_MAC" >> $PROFILE
+  echo "export PATH=\$CLEAN_MY_MAC/bin:\$PATH" >> $PROFILE
 
   printf "${GREEN}"
   echo '           __                                                                                      '
@@ -86,5 +81,3 @@ main() {
   printf "${NORMAL}"
   source "$HOME/.cleanmmrc"
 }
-
-main
