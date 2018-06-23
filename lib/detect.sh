@@ -13,3 +13,15 @@ detect_profile() {
 
   echo $DETECTED_PROFILE
 }
+
+detect_shell() {
+  local DETECTED_SHELL=''
+
+  if [[ -n "$BASH_VERSION" ]]; then
+    DETECTED_SHELL="bash"
+  elif [[ -n "$ZSH_VERSION" ]]; then
+    DETECTED_SHELL="zsh"
+  fi
+
+  echo $DETECTED_SHELL
+}

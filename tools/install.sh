@@ -50,7 +50,7 @@
     exit 1
   }
 
-  source "$CLEAN_MY_MAC/lib/detect_profile.sh"
+  source "$CLEAN_MY_MAC/lib/detect.sh"
 
   printf "${BLUE}Using the Clean My Mac template file and add it to ~/.cleanmmrc${NORMAL}\n"
   cp "$CLEAN_MY_MAC/templates/cleanmmrc.template" "$HOME/.cleanmmrc"
