@@ -1,6 +1,13 @@
 #!/bin/bash
 
-{
+install_clean_my_mac() {
+  local colors
+  local RED
+  local BLUE
+  local GREEN
+  local YELLOW
+  local NORMAL
+
   if which tput >/dev/null 2>&1; then
     colors=$(tput colors)
   fi
@@ -63,9 +70,10 @@
   chmod +x "${CLEAN_MY_MAC}/bin/uninstall_clean_my_mac"
 
   printf "${BLUE}Finalizing...${NORMAL}\n"
-  PROFILE=$(detect_profile)
-  echo "export CLEAN_MY_MAC=$CLEAN_MY_MAC" >> $PROFILE
-  echo "export PATH=\$CLEAN_MY_MAC/bin:\$PATH" >> $PROFILE
+  local PROFILE=$(detect_profile)
+  echo "\n\n# CLEAN MY MAC Settings\n \
+    export CLEAN_MY_MAC=$CLEAN_MY_MAC\n \
+    export PATH=\$CLEAN_MY_MAC/bin:\$PATH\n" >> $PROFILE
 
   printf "${GREEN}"
   echo '           __                                                                                      '
@@ -79,5 +87,7 @@
   echo '                                                     /______/                                      ...is now installed!'
   echo ''
   printf "${NORMAL}"
-  source $PROFILE
+  . $PROFILE
 }
+
+install_clean_my_mac
