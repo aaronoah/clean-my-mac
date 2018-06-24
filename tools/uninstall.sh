@@ -32,6 +32,7 @@ uninstall_clean_my_mac() {
   read confirmation
   if [[ "$confirmation" != y ]] && [[ "$confirmation" != Y ]] && [[ "$confirmation" != yes ]]; then
     echo "Uninstall cancelled"
+    printf "${NORMAL}"
     exit
   fi
 
@@ -41,7 +42,7 @@ uninstall_clean_my_mac() {
   fi
 
   if [[ -f "$HOME/.cleanmmrc" ]]; then
-    rm "$HOME/.cleanmmc"
+    rm "$HOME/.cleanmmrc"
   fi
   printf "done.${NORMAL}\n\n"
 

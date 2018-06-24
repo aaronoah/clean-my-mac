@@ -47,11 +47,6 @@ install_clean_my_mac() {
   umask g=w,o=w # revoke group user and other user write permissions
 
   printf "${BLUE}Cloning Clean My Mac...${NORMAL}\n"
-  command -v git >/dev/null 2>&1 || {
-    echo "Error: git is not installed"
-    exit 1
-  }
-
   env git clone --depth=1 https://github.com/aaronoah/clean-my-mac.git "$CLEAN_MY_MAC" >/dev/null 2>&1 || {
     printf "${RED}Error: git clone of clean-my-mac failed.\n"
     exit 1
@@ -68,6 +63,8 @@ install_clean_my_mac() {
   chmod +x "${CLEAN_MY_MAC}/bin/clean_my_mac"
   cp "${CLEAN_MY_MAC}/tools/uninstall.sh" "${CLEAN_MY_MAC}/bin/uninstall_clean_my_mac"
   chmod +x "${CLEAN_MY_MAC}/bin/uninstall_clean_my_mac"
+  cp "${CLEAN_MY_MAC}/tools/upgrade.sh" "${CLEAN_MY_MAC}/bin/upgrade_clean_my_mac"
+  chmod +x "${CLEAN_MY_MAC}/bin/upgrade_clean_my_mac"
 
   printf "${BLUE}Finalizing...${NORMAL}\n"
   local PROFILE=$(detect_profile)
@@ -76,15 +73,15 @@ install_clean_my_mac() {
     export PATH=\$CLEAN_MY_MAC/bin:\$PATH\n" >> $PROFILE
 
   printf "${GREEN}"
-  echo '           __                                                                                      '
-  echo '     ___  / /    ___    _____   ____          ______  ___  __   __      _____  ____   _____    ___ '
-  echo '   / ___\/ /   / _  \ / __  / /  __  \       /  __  `__  \/  / /  /    /  __ ` __  \/  __  / / ___\'
-  echo '  / /   / /   / /__\/  / / / /  /  / /      /  / /  / /  /  / /  /    /  / /  / /  /  / / / / /    '
-  echo ' / /   / /   / ____/  / / / /  /  / /      /  / /  / /  /  / /  /    /  / /  / /  /  / / / / /     '
-  echo '/ /___/ /___/ /___/  /_/  \/  /  / /_     /  / /  / /  /  /_/  /    /  / /  / /  /  /_/  \/ /___   '
-  echo '\____/\____/\____/\_______/___\   \__/   /__/ /__/ /__/\____  /    /__/ /__/ /__/\_______/\____/   '
-  echo '                                                      ___ /  /                                     '
-  echo '                                                     /______/                                      ...is now installed!'
+  echo '           __                                                                         '
+  echo '     ___  / /   ___   _____  ____         ____ ___  __  __     ____ ___   _____   ___ '
+  echo '   / ___\/ /  / _  \/ __  / / __  \      / __ `__ \/ / / /    / __ `__ \/ __  / / ___\'
+  echo '  / /   / /  / /__\/ / / / / /  / /     / / / / / / / / /    / / / / / / / / / / /    '
+  echo ' / /   / /  / ____/ / / / / /  / /     / / / / / / / / /    / / / / / / / / / / /     '
+  echo '/ /___/ /__/ /___/ /_/  \/ /  / /_    / / / / / / /_/ /    / / / / / / /_/  \/ /___   '
+  echo '\____/\___/\____/\______/__\  \__/   /_/ /_/ /_/\__  /    /_/ /_/ /_/\______/\____/   '
+  echo '                                               ___/ /                                 '
+  echo '                                             /_____/                                  ...is now installed!'
   echo ''
   printf "${NORMAL}"
   . $PROFILE

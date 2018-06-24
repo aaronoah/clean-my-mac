@@ -33,6 +33,11 @@ clean_my_mac
 ```
 Then, you're all set! :sparkles:
 
+If you need an upgrade, run
+```
+upgrade_clean_my_mac
+```
+
 ## License
 
 Clean My Mac is released under the [MIT License](../LICENSE)
