@@ -36,7 +36,7 @@ uninstall_clean_my_mac() {
     exit
   fi
 
-  printf "${BLUE}Removing $CLEAN_MY_MAC"
+  printf "${BLUE}Removing $CLEAN_MY_MAC\n"
   if [[ -d "$CLEAN_MY_MAC" ]]; then
     rm -rf $CLEAN_MY_MAC
   fi

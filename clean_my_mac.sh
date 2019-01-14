@@ -3,6 +3,16 @@ source "$CLEAN_MY_MAC/lib/detect.sh"
 
 clean_my_mac() {
 
+  # add extra commands to run for clean script
+  # CAUTIOUS! THESE COMMANDS WILL BE RUN WHEN
+  # RUNNING CLEAN_MY_MAC, DON'T GRANT ROOT
+  # ACCESS TO ANY OF THEM IN THE FILE
+  if [[ $1 == "extra" ]]; then
+    vim "$CLEAN_MY_MAC/bin/extra.sh"
+    chmod +x "$CLEAN_MY_MAC/bin/extra.sh"
+    echo "" >> "$CLEAN_MY_MAC/bin/extra.sh"
+  fi
+
   local colors
   local RED
   local BLUE
@@ -64,6 +74,13 @@ clean_my_mac() {
     printf "${NORMAL}"
     set -f
   done
+
+  # run extra commands
+  if [[ -f "$CLEAN_MY_MAC/bin/extra.sh" ]]; then
+    set -v # turn on verbose
+    sh "$CLEAN_MY_MAC/bin/extra.sh"
+    set +v
+  fi
 
   set +f
 
