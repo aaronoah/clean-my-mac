@@ -67,6 +67,13 @@ install_clean_my_mac() {
   chmod +x "${CLEAN_MY_MAC}/bin/upgrade_clean_my_mac"
 
   printf "${BLUE}Finalizing...${NORMAL}\n"
+  command -v clean_my_mac >/dev/null 2>&1 || {
+    PROFILE=$(detect_profile)
+    if [[ $PATH != *".clean-my-mac"* ]]; then
+      echo "\n\n# CLEAN MY MAC Settings\nexport CLEAN_MY_MAC=$CLEAN_MY_MAC\nexport PATH=\$CLEAN_MY_MAC/bin:\$PATH\n" >> $PROFILE
+    fi
+    PATH=$PATH:$CLEAN_MY_MAC/bin
+  }
 
   printf "${GREEN}"
   echo '           __                                                                         '
@@ -83,11 +90,3 @@ install_clean_my_mac() {
 }
 
 install_clean_my_mac
-
-command -v clean_my_mac >/dev/null 2>&1 || {
-  PROFILE=$(detect_profile)
-  if [[ $PATH != *".clean-my-mac"* ]]; then
-    echo "\n\n# CLEAN MY MAC Settings\nexport CLEAN_MY_MAC=$CLEAN_MY_MAC\nexport PATH=\$CLEAN_MY_MAC/bin:\$PATH\n" >> $PROFILE
-  fi
-  source $PROFILE
-}
